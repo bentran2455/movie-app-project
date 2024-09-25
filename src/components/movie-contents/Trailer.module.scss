@@ -1,0 +1,60 @@
+.trailer {
+  position: relative;
+  transform: scale(1);
+  transition: 1s;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+@keyframes button {
+  0%,
+  100% {
+    opacity: 0.3;
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(10px);
+  }
+}
+.playBtn {
+  position: relative;
+  color: var(--text-color);
+  width: 80px;
+  height: 80px;
+  transition: 1s;
+  background: transparent;
+  backdrop-filter: blur(20px);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  & ion-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+  &::before {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    content: "";
+    background: transparent;
+    border: 10px solid #fff;
+    border-radius: 50%;
+    animation: button 1s linear infinite;
+  }
+}
