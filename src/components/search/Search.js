@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Tippy from "@tippyjs/react/headless";
 import styles from "./Search.module.scss";
 
-function Search() {
+function Search({ searchText, searchTextFn, movieOnSearch }) {
+  const [tippyDisplay, setTippyDisplay] = useState(false);
+  useEffect(() => {
+    function handleScroll() {
+      setTippyDisplay(false);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
   return (
-    <div className={styles.search}>
-      <input type="text" placeholder="Search" className={styles.input} />
-      <ion-icon name="search-outline"></ion-icon>
-    </div>
+    <Tippy
+      interactive
+      visible={tippyDisplay}
+      onClickOutside={() => setTippyDisplay(false)}
+      maxWidth={300}
+      placement="bottom"
+      popperOptions={{
+        positionFixed: true,
+      }}
+      render={(attrs) => (
+        <div {...attrs} className={styles.list} tabIndex="-1">
+          <ul className={styles.searchUl}>
+            {movieOnSearch.map((movie) => (
+              <li key={movie.id}>{movie.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    >
+      <div className={styles.search}>
+        <input
+          type="text"
+          placeholder="Search"
+          className={styles.input}
+          value={searchText}
+          onChange={(e) => {
+            setTippyDisplay(true);
+            searchTextFn(e.target.value);
+          }}
+        />
+        <ion-icon name="search-outline"></ion-icon>
+      </div>
+    </Tippy>
   );
 }
 

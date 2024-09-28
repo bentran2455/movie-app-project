@@ -1,8 +1,29 @@
-export const options = {
-  method: "GET",
+import axios from "axios";
+const auth = process.env.REACT_APP_API_KEY;
+const url = process.env.REACT_APP_API_URL;
+
+const httpRequest = axios.create({
+  baseURL: url,
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN2JkMGM3OGFmN2IwOTA0OTQzMDFlODIzZjQwZjMyYSIsIm5iZiI6MTcyNzI3MDEyNy4yNzEwNDIsInN1YiI6IjY2NWRmMzI5NTQ1M2IzNWYzNDc5OGJmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.eqTBG7v5cle0Cf9iCZzPwgZRz7j6afUupoJFyXRo9Gg",
+    Authorization: auth,
   },
+});
+
+export const request = async (kq) => {
+  try {
+    const response = await httpRequest.get(`/movie/${kq}`);
+    return response.data.results;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const search = async (kq) => {
+  try {
+    const response = await httpRequest.get(`/search/movie?query=${kq}`);
+    return response.data.results;
+  } catch (err) {
+    console.error(err);
+  }
 };

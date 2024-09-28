@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Card.module.scss";
 
 const prePath = "https://image.tmdb.org/t/p/w300";
-
 function Card({ movie }) {
   return (
     <div className="col-lg-2 col-md-4 col-sm-6">

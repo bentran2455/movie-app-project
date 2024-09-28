@@ -5,7 +5,7 @@ import "swiper/css/effect-flip";
 import "swiper/css/pagination";
 import "./movieSlider.css";
 
-const prePath = "https://image.tmdb.org/t/p/w300";
+const prePath = "https://image.tmdb.org/t/p/w200";
 
 function MovieSlider({ slides, slideChange }) {
   return (
@@ -13,8 +13,8 @@ function MovieSlider({ slides, slideChange }) {
       effect={"coverflow"}
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={2}
-      slidesPerView={"5"}
+      initialSlide={1}
+      slidesPerView={3}
       modules={[Autoplay, EffectCoverflow]}
       className="movieSlider"
     >

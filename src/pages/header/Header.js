@@ -1,25 +1,48 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useDebounce } from "@uidotdev/usehooks";
+import { search } from "../../ultis/Request";
 import headerStyles from "./Header.module.scss";
-import navStyles from "./../../components/navigation/NavListItem.module.scss";
-import NavListItem from "../../components/navigation/NavListItem";
-import { navList } from "../../data/navList";
+import NavBar from "../../components/navigation/NavBar";
 import Search from "../../components/search/Search";
-import Button from "../../components/buttons/Button";
 
 function Header() {
+  const [searchValue, setSearchValue] = useState("");
+  const [movieOnSearch, setMovieOnSearch] = useState([]);
+  const debouncedValue = useDebounce(searchValue, 1000);
+
+  const headerRef = useRef();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await search(debouncedValue);
+      setMovieOnSearch(result);
+    };
+    fetch();
+  }, [debouncedValue]);
+
+  useEffect(() => {
+    function addScroll() {
+      headerRef.current.classList.add("scrolled");
+    }
+    window.addEventListener("scroll", addScroll);
+    return () => {
+      window.removeEventListener("scroll", addScroll);
+    };
+  });
   return (
-    <header className={headerStyles.header}>
-      <a href="/" className={headerStyles.logo}>
-        Cinema
-      </a>
-      <ul className={navStyles.nav}>
-        {navList.map((item) => (
-          <NavListItem key={item._id} item={item} />
-        ))}
-      </ul>
-      <Search />
-      <Button primary icon="log-in-outline" name="Sign in" />
-    </header>
+    <div className="container">
+      <header className={headerStyles.header} ref={headerRef}>
+        <a href="/" className={headerStyles.logo}>
+          Cinema
+        </a>
+        <NavBar />
+        <Search
+          searchText={searchValue}
+          searchTextFn={setSearchValue}
+          movieOnSearch={movieOnSearch}
+        />
+      </header>
+    </div>
   );
 }
 

@@ -1,26 +1,22 @@
-export const navList = [
+const navList = [
   {
     _id: 1,
-    link: "#",
+    link: "/",
     name: "Home",
     active: true,
   },
   {
     _id: 2,
-    link: "#schedule",
-    name: "Schedule",
+    link: "/all",
+    name: "All movies",
     active: false,
   },
   {
     _id: 3,
-    link: "#trend",
-    name: "Trend",
-    active: false,
-  },
-  {
-    _id: 4,
-    link: "#blogs",
-    name: "Blogs",
+    link: "/upcoming",
+    name: "Upcoming",
     active: false,
   },
 ];
+
+export default navList;

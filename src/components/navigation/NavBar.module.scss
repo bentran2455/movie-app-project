@@ -2,14 +2,13 @@
   display: flex;
   margin: 0;
   padding: 0;
+  &.nav > * {
+    list-style: none;
+    margin: 0 20px;
+  }
 }
 
 .item {
-  list-style: none;
-  margin: 0 20px;
-}
-
-.itemLink {
   color: var(--text-color);
   font-weight: 400;
   text-transform: uppercase;
