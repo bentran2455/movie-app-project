@@ -19,12 +19,8 @@ function Card({ movie }) {
             <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
           </h4>
           <div className={styles.icon}>
-            <button>
-              <ion-icon name="add-outline"></ion-icon>
-            </button>
-            <button>
-              <ion-icon name="play-outline"></ion-icon>
-            </button>
+            <ion-icon name="add-outline"></ion-icon>
+            <ion-icon name="play-outline"></ion-icon>
           </div>
         </div>
       </div>
