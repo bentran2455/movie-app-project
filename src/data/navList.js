@@ -11,12 +11,12 @@ const navList = [
     name: "All movies",
     active: false,
   },
-  {
-    _id: 3,
-    link: "/upcoming",
-    name: "Upcoming",
-    active: false,
-  },
+  // {
+  //   _id: 3,
+  //   link: "/upcoming",
+  //   name: "Upcoming",
+  //   active: false,
+  // },
 ];
 
 export default navList;

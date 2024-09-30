@@ -1,68 +1,86 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { request } from "../../ultis/Request";
-import { filterList } from "../../data/filterList";
+import { discover, genre } from "../../ultis/Request";
 import styles from "./Main.module.scss";
 import Card from "../../components/card/Card";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import NativeSelect from "@mui/material/NativeSelect";
+import Box from "@mui/material/Box";
 
-function Main({ header, path }) {
-  const [data, setData] = useState([]);
+function Main() {
   const [movies, setMovies] = useState([]);
-  const [filter, setFilter] = useState(filterList);
+  const [filter, setFilter] = useState([]);
+  const [genredId, setGenreId] = useState();
 
   useEffect(() => {
-    setFilter(filterList);
     const fetch = async () => {
-      const result = await request(path);
-      setData(result);
+      const result = await genre();
+      if (result) {
+        result.unshift({
+          id: 0,
+          name: "",
+        });
+      }
+      setFilter(result);
     };
     fetch();
-  }, [path]);
+  }, []);
 
   useEffect(() => {
-    setMovies(data);
-  }, [data]);
-
-  function getGenre(genre) {
-    if (genre.id === 1) {
-      setMovies(data);
-      setFilter(filterList);
-      return;
-    }
-    const clickedGenre = filter.map((el) =>
-      el.id === genre.id && genre.id !== 1
-        ? { ...el, active: true }
-        : { ...el, active: false }
-    );
-    console.log(clickedGenre);
-    setFilter(clickedGenre);
-    const movieByGenre = movies.filter((movie) => {
-      return movie.genre_ids.includes(genre.id);
-    });
-    setMovies(movieByGenre);
-  }
+    const fetch = async () => {
+      const result = await discover(genredId);
+      setMovies(result);
+    };
+    fetch();
+  }, [genredId]);
   return (
     <main className={styles.main}>
       <section className={styles.wrapper}>
         <div className="container-fluid">
-          <div className="row">
-            <h4 className={styles.header}>{header}</h4>
-            <ul className={styles.filters}>
-              {filter.map((genre) => (
-                <li
-                  className={`${styles.genre} ${
-                    genre.active ? styles.active : ""
-                  }`}
-                  key={genre.id}
-                  onClick={() => {
-                    getGenre(genre);
+          <h4 className={styles.header}>
+            All movies
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl
+                sx={{
+                  m: 1,
+                  minWidth: 80,
+                  paddingLeft: 10,
+                }}
+              >
+                <InputLabel
+                  variant="standard"
+                  htmlFor="uncontrolled-native"
+                  sx={{ color: "white", padding: "0 10px" }}
+                >
+                  Category
+                </InputLabel>
+                <NativeSelect
+                  sx={{ color: "white" }}
+                  defaultValue={10}
+                  inputProps={{
+                    name: "genre",
+                    id: "uncontrolled-native",
+                  }}
+                  onChange={(e) => {
+                    setGenreId(e.target.value);
                   }}
                 >
-                  {genre.name}
-                </li>
-              ))}
-            </ul>
-          </div>
+                  {filter &&
+                    filter.length > 0 &&
+                    filter.map((genre) => (
+                      <option
+                        className={styles.genre}
+                        key={genre.id}
+                        value={genre.id}
+                      >
+                        {genre.name}
+                      </option>
+                    ))}
+                </NativeSelect>
+              </FormControl>
+            </Box>
+          </h4>
           <div className="row mt-5">
             {movies &&
               movies.length > 0 &&

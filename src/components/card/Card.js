@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import styles from "./Card.module.scss";
 
 const prePath = "https://image.tmdb.org/t/p/w300";
@@ -8,15 +10,21 @@ function Card({ movie }) {
       <div className={styles.cards}>
         <img
           src={`${prePath}${movie.poster_path}`}
-          alt="Preview"
+          alt="Poster"
           className="img-fluid"
         />
-        <p className={styles.category}>Category</p>
+        <p className={styles.category}></p>
         <div className={styles.content}>
-          <h4 className={styles.title}>{movie.title}</h4>
+          <h4 className={styles.title}>
+            <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+          </h4>
           <div className={styles.icon}>
-            <ion-icon name="add-outline"></ion-icon>
-            <ion-icon name="play-outline"></ion-icon>
+            <button>
+              <ion-icon name="add-outline"></ion-icon>
+            </button>
+            <button>
+              <ion-icon name="play-outline"></ion-icon>
+            </button>
           </div>
         </div>
       </div>

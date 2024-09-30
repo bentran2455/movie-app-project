@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import styles from "./Search.module.scss";
 
@@ -27,7 +28,9 @@ function Search({ searchText, searchTextFn, movieOnSearch }) {
         <div {...attrs} className={styles.list} tabIndex="-1">
           <ul className={styles.searchUl}>
             {movieOnSearch.map((movie) => (
-              <li key={movie.id}>{movie.title}</li>
+              <li key={movie.id} onClick={() => setTippyDisplay(false)}>
+                <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+              </li>
             ))}
           </ul>
         </div>

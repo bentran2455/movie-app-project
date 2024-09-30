@@ -1,0 +1,52 @@
+.main {
+  background: #000;
+  padding: 0 80px;
+  transition: ease-in-out 1s;
+  transform-origin: bottom;
+  color: var(--text-color);
+}
+
+.detail {
+  display: flex;
+  max-height: 100vh;
+  min-height: 80vh;
+  align-items: center;
+}
+
+.columns {
+  display: flex;
+  gap: 40px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 30px;
+}
+
+.title {
+  font-family: "Racing Sans One";
+  color: lightsalmon;
+  font-size: 2.3rem;
+}
+
+.title,
+.header {
+  margin-bottom: 17px;
+}
+
+.facts,
+.runtime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.genres {
+  display: flex;
+  gap: 20px;
+  list-style-position: inside;
+  padding: 0;
+}
